@@ -1,0 +1,55 @@
+{
+  "name": "Vertex",
+  "acronym": "VTX",
+  "request": {
+    "cert": "",
+    "key": "",
+    "passphrase": "",
+    "ca": "",
+    "proxy": ""
+  },
+  "logging": {
+    "level": "trace"
+  },
+  "onDemandOnly": true,
+  "entityTypes": ["*"],
+  "defaultColor": "light-blue",
+  "styles": ["./styles/styles.less"],
+  "block": {
+    "component": {
+      "file": "./components/component.js"
+    },
+    "template": {
+      "file": "./templates/template.hbs"
+    }
+  },
+  "options": [
+    {
+      "key": "url",
+      "name": "Vertex URL",
+      "description": "The URL of the Vertex API",
+      "default": "",
+      "type": "text",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "username",
+      "name": "Vertex Username",
+      "description": "Your Vertex Username",
+      "default": "",
+      "type": "text",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "password",
+      "name": "Vertex Password",
+      "description": "Your Vertex Password",
+      "default": "",
+      "type": "password",
+      "userCanEdit": false,
+      "adminOnly": true
+    }
+  ]
+}
