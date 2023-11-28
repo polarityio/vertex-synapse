@@ -9,7 +9,7 @@
     "proxy": ""
   },
   "logging": {
-    "level": "trace"
+    "level": "info"
   },
   "onDemandOnly": true,
   "entityTypes": ["*"],

@@ -14,7 +14,7 @@ module.exports = {
     // the url parameter (by embedding the auth info in the uri)
     proxy: ''
   },
-  logging: { level: 'trace' },
+  logging: { level: 'info' },
   entityTypes: ['*'],
   onDemandOnly: true,
   defaultColor: 'light-blue',
