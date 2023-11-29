@@ -21,9 +21,18 @@
   {{#if details.seen}}
     <div>
       <span class="p-key">Seen:</span>
-      <span class="p-value">{{details.seen}}</span>
+      {{#each details.seen as |timestamp|}}
+        <div>
+          <span class="p-value">{{moment-format
+              timestamp
+              "MM/DD/YYYY HH:mm:ss"
+              timeZone=timezone
+            }}</span>
+        </div>
+      {{/each}}
     </div>
   {{/if}}
+
   {{#if details.asn}}
     <div>
       <span class="p-key">ASN:</span>

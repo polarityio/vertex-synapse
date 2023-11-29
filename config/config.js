@@ -1,6 +1,5 @@
 module.exports = {
   name: 'Vertex',
-  polarityIntegrationUuid: '840b9820-8e34-11ee-953a-25762351b8d4',
   acronym: 'VTX',
   request: {
     // Provide the path to your certFile. Leave an empty string to ignore this option.
