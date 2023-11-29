@@ -1,6 +1,6 @@
 module.exports = {
   name: 'Vertex',
-  polarityIntegrationUuid: '840b9820-8e34-11ee-953a-25762351b8d4',
+  polarityIntegrationUuid: '4eb6d8a0-8efd-11ee-8ad3-4d9eee77d25a',
   acronym: 'VTX',
   request: {
     // Provide the path to your certFile. Leave an empty string to ignore this option.
@@ -53,7 +53,7 @@ module.exports = {
       description: 'Your Vertex Password',
       default: '',
       type: 'password',
-      userCanEdit: false,
+      userCanEdit: false,``
       adminOnly: true
     }
   ]
