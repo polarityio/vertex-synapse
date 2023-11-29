@@ -53,7 +53,7 @@ module.exports = {
       description: 'Your Vertex Password',
       default: '',
       type: 'password',
-      userCanEdit: false,``
+      userCanEdit: false,
       adminOnly: true
     }
   ]
