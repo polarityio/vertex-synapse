@@ -13,9 +13,20 @@
     "level": "info"
   },
   "onDemandOnly": true,
-  "entityTypes": ["*"],
+  "entityTypes": [
+    "IPv4",
+    "IPv6",
+    "domain",
+    "email",
+    "MD5",
+    "SHA1",
+    "SHA256",
+    "cve"
+  ],
   "defaultColor": "light-blue",
-  "styles": ["./styles/styles.less"],
+  "styles": [
+    "./styles/styles.less"
+  ],
   "block": {
     "component": {
       "file": "./components/component.js"

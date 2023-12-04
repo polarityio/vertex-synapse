@@ -16,7 +16,7 @@ module.exports = {
     proxy: ''
   },
   logging: { level: 'info' },
-  entityTypes: ['*'],
+  entityTypes: ['IPv4', 'IPv6', 'domain', 'email', 'MD5', 'SHA1', 'SHA256', 'cve'],
   onDemandOnly: true,
   defaultColor: 'light-blue',
   styles: ['./styles/styles.less'],
