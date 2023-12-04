@@ -24,6 +24,7 @@ async function doLookup(entities, options, cb) {
   try {
     await authenticateAndSetHeaders(options);
     let searchResponse = await sendRequests(entities, options);
+    Logger.trace({ searchResponse }, 'Search Response');
 
     // Check each response for a 401 status code
     const hasAuthError = searchResponse.some(
@@ -32,7 +33,7 @@ async function doLookup(entities, options, cb) {
 
     if (hasAuthError) {
       Logger.trace('Reauthenticating...');
-      await authenticateAndSetHeaders(options); // Reattempt authentication
+      await authenticateAndSetHeaders(options, true); // Reattempt authentication
       searchResponse = await sendRequests(entities, options); // Retry the requests
     }
 
@@ -52,10 +53,21 @@ async function doLookup(entities, options, cb) {
   }
 }
 
-async function authenticateAndSetHeaders(options) {
+async function authenticateAndSetHeaders(options, isRetryAttempt = false) {
   const Logger = getLogger();
   try {
     const authResponse = await auth(options);
+
+    // If this is a retry attempt then we want to fail if the authentication did not work
+    // Our normal request code does not fail on a 401 specifically because we want to allow
+    // a reauth attempt in case the cookie's session has expired and we need to get a new one
+    if (isRetryAttempt && _.get(authResponse, 'result.statusCode') === 401) {
+      let authErrorMessage = _.get(authResponse, 'result.body.mesg');
+      throw new AuthRequestError(
+        `Authentication Error: Unable to authenticate with Vertex. ${authErrorMessage}`
+      );
+    }
+
     polarityRequest.setHeaders('Cookie', authResponse.result.headers['set-cookie']);
   } catch (err) {
     Logger.error({ err }, 'Failed to authenticate');
@@ -99,6 +111,8 @@ async function auth(options, retryCount = 0) {
         passwd: options.password
       }
     });
+
+    Logger.trace({ authResponse }, 'Auth Response');
 
     return authResponse[0];
   } catch (err) {

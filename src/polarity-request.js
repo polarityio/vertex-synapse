@@ -87,6 +87,7 @@ class PolarityRequest {
 
     return new Promise((resolve, reject) => {
       this.requestWithDefaults(requestOptions, async (err, response) => {
+        Logger.trace({response, requestOptions}, 'HTTP Response');
         if (err) {
           return reject(
             new NetworkError(
