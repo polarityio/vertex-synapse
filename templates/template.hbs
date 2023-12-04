@@ -1,7 +1,7 @@
 {{#if details}}
   <div>
-    <a class="p-link" href="{{block.userOptions.url}}/research">View Vertex Synapse
-      {{fa-icon icon="external-link" class="external-icon"}}</a>
+    <a class="p-link" href="{{details.queryLink}}">View in Vertex Synapse
+      {{fa-icon icon="external-link" class="external-link-icon"}}</a>
   </div>
 
   <h1 class="p-title">
@@ -23,9 +23,13 @@
       <span class="p-key">Seen:</span>
       <span class="p-value">
         {{#each details.seen as |timestamp index|}}
-          {{moment-format timestamp "MM/DD/YYYY HH:mm:ss" timeZone=timezone}}{{#if
-            @first
-          }}, {{/if}}
+          {{#if (gt details.seen.length 1)}}
+            <div class="ml-2">
+              {{moment-format timestamp "MM/DD/YYYY HH:mm:ss" timeZone=timezone}}
+            </div>
+          {{else}}
+            {{moment-format timestamp "MM/DD/YYYY HH:mm:ss" timeZone=timezone}}
+          {{/if}}
         {{/each}}
       </span>
     </div>

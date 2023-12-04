@@ -41,7 +41,7 @@ async function doLookup(entities, options, cb) {
     const polarityResult = new PolarityResult();
 
     const lookupResults = data.map((result) => {
-      const preprocessedData = buildResultObject(result);
+      const preprocessedData = buildResultObject(result, options);
       return polarityResult.createResultsObject(preprocessedData);
     });
 
@@ -71,13 +71,17 @@ async function sendRequests(entities, options) {
         method: 'GET',
         url: `${options.url}/api/v1/storm`,
         body: {
-          query: `inet:${convertTypes(entity.type)} = ${entity.value}`,
+          query: getQuery(entity),
           stream: 'jsonlines',
           opts: { limit: 10 }
         }
       });
     })
   );
+}
+
+function getQuery(entity) {
+  return `inet:${convertTypes(entity.type)} = ${entity.value}`;
 }
 
 function delay(ms) {
@@ -110,14 +114,19 @@ async function auth(options, retryCount = 0) {
   }
 }
 
-function buildResultObject(result) {
+function buildResultObject(result, options) {
   const newDetails = {
     ...result.props,
     entity: result.entity,
     created: result.props['.created'],
     seen: result.props['.seen'],
     dns_rev: result.props['dns:rev'],
-    nodeCount: result.nodeCount
+    nodeCount: result.nodeCount,
+    queryLink: `${
+      options.url
+    }/research?stormmode=storm&displaymode=table&query=${encodeURIComponent(
+      getQuery(result.entity)
+    )}`
   };
 
   return newDetails;
