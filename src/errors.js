@@ -87,13 +87,12 @@ class IntegrationError extends Error {
    * details the request options that resulted in the specified error.  The `requestOptions` property will automatically
    * have sensitive authentication headers stripped.
    */
-  constructor (message, properties = {}) {
+  constructor(message, properties = {}) {
     const Logger = getLogger();
     super(message);
-    Logger.info({ properties }, 'Error properties');
     // These are enumerable properties which the Polarity server can access
     // Most important is the `detail` property which is used to display
-  // a user friendly message in the Overlay Window.
+    // a user friendly message in the Overlay Window.
     this.detail = message;
     this.name = this.constructor.name;
     this.help = '';
@@ -117,7 +116,7 @@ class IntegrationError extends Error {
    * @param requestOptions
    * @returns {*}
    */
-  sanitizeRequestOptions (requestOptions) {
+  sanitizeRequestOptions(requestOptions) {
     const sanitizedOptions = {
       ...requestOptions
     };
@@ -151,7 +150,7 @@ class IntegrationError extends Error {
    *
    * @returns {{name: string, detail: string}}
    */
-  toJSON () {
+  toJSON() {
     const Logger = getLogger();
 
     let props = {
@@ -181,7 +180,7 @@ class IntegrationError extends Error {
  * https://betterstack.com/community/guides/scaling-nodejs/nodejs-errors/#4-econnrefused
  */
 class NetworkError extends IntegrationError {
-  constructor (message, properties = {}) {
+  constructor(message, properties = {}) {
     super(message, properties);
 
     // Check if we are wrapping an original error
@@ -209,7 +208,7 @@ class NetworkError extends IntegrationError {
  * API error for REST requests
  */
 class ApiRequestError extends IntegrationError {
-  constructor (message, properties = {}) {
+  constructor(message, properties = {}) {
     super(message, properties);
   }
 }
@@ -218,7 +217,7 @@ class ApiRequestError extends IntegrationError {
  * Thrown by generateAccessToken method if there is a failure to fetch a token
  */
 class AuthRequestError extends IntegrationError {
-  constructor (message, properties = {}) {
+  constructor(message, properties = {}) {
     super(message, properties);
   }
 }
@@ -228,7 +227,7 @@ class AuthRequestError extends IntegrationError {
  * the user to retry their lookup.
  */
 class RetryRequestError extends IntegrationError {
-  constructor (message, properties = {}) {
+  constructor(message, properties = {}) {
     super(message, properties);
   }
 }
