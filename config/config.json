@@ -2,6 +2,7 @@
   "name": "Vertex",
   "polarityIntegrationUuid": "4eb6d8a0-8efd-11ee-8ad3-4d9eee77d25a",
   "acronym": "VTX",
+  "description": "Search Vertex Synapse",
   "request": {
     "cert": "",
     "key": "",
