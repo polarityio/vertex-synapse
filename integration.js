@@ -6,6 +6,10 @@ const { setLogger, getLogger } = require('./src/logger');
 const { polarityRequest } = require('./src/polarity-request');
 const { parseErrorToReadableJSON, AuthRequestError } = require('./src/errors');
 const { PolarityResult } = require('./src/create-result-object');
+const NodeCache = require('node-cache');
+
+// Default session timeout is 24 hours
+const cookieCache = new NodeCache({ stdTTL: 86400 });
 
 function startup(logger) {
   setLogger(logger);
@@ -53,22 +57,45 @@ async function doLookup(entities, options, cb) {
   }
 }
 
+function getCookieCacheKey(options) {
+  return `${options.url}${options.username}${options.password}`;
+}
+
 async function authenticateAndSetHeaders(options, isRetryAttempt = false) {
   const Logger = getLogger();
+  let session;
+  let cookieCacheKey = getCookieCacheKey(options);
+  if (isRetryAttempt) {
+    // This is a retry attempt so the session cookie is no longer valid and we should delete if it
+    // exists in the cache
+    Logger.trace({ cookieCacheKey }, 'Deleting cached session cookie');
+    cookieCache.del(cookieCacheKey);
+  } else {
+    // Not a retry attempt so check to see if we have a cached session key
+    session = cookieCache.get(cookieCacheKey);
+  }
+
+  if (session) {
+    Logger.trace({ session }, 'Using cached session cookie');
+    polarityRequest.setHeaders('Cookie', session);
+    return;
+  }
+
   try {
     const authResponse = await auth(options);
 
     // If this is a retry attempt then we want to fail if the authentication did not work
     // Our normal request code does not fail on a 401 specifically because we want to allow
-    // a reauth attempt in case the cookie's session has expired and we need to get a new one
+    // a re-auth attempt in case the cookie's session has expired and we need to get a new one
     if (isRetryAttempt && _.get(authResponse, 'result.statusCode') === 401) {
       let authErrorMessage = _.get(authResponse, 'result.body.mesg');
       throw new AuthRequestError(
         `Authentication Error: Unable to authenticate with Vertex. ${authErrorMessage}`
       );
     }
-
-    polarityRequest.setHeaders('Cookie', authResponse.result.headers['set-cookie']);
+    session = authResponse.result.headers['set-cookie'];
+    cookieCache.set(cookieCacheKey, session);
+    polarityRequest.setHeaders('Cookie', session);
   } catch (err) {
     Logger.error({ err }, 'Failed to authenticate');
     throw err;
