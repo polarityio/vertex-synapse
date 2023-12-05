@@ -33,7 +33,7 @@ module.exports = {
     {
       key: 'url',
       name: 'Vertex URL',
-      description: 'The URL of the Vertex API',
+      description: 'The URL of your Vertex Synapse instance',
       default: '',
       type: 'text',
       userCanEdit: false,
@@ -42,7 +42,7 @@ module.exports = {
     {
       key: 'username',
       name: 'Vertex Username',
-      description: 'Your Vertex Username',
+      description: 'Your Vertex Synapse Username',
       default: '',
       type: 'text',
       userCanEdit: false,
@@ -51,7 +51,7 @@ module.exports = {
     {
       key: 'password',
       name: 'Vertex Password',
-      description: 'Your Vertex Password',
+      description: 'The Vertex Synapse Password for the provided Username',
       default: '',
       type: 'password',
       userCanEdit: false,
