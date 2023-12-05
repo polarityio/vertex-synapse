@@ -1,20 +1,20 @@
 # Polarity Vertex Synapse Integration
 
-Vertex Synapse is a central intelligence system, which serves as a comprehensive solution encompassing the entire intelligence lifecycle from collection to analysis to reporting. The Polarity Vertex Synpase integration allows users to search IOC's by email addresses, ipv4, ipv6, domains and hashes.
+Vertex Synapse is a central intelligence system, which serves as a comprehensive solution encompassing the entire intelligence lifecycle from collection to analysis to reporting. The Polarity Vertex Synpase integration allows users to search IOC's by email address, ipv4, ipv6, domains and hashes.
 
-![image]()
+<img src="images/overlay.png" width="50%">
 
-### Vertex Synapse URL
+### Vertex URL
 
-The URL for the your Vertex Synapse instance.
+The URL of your Vertex Synapse instance
 
-### Username
+### Vertex Username
 
-The Username for your Vertex Synpase instance.
+Your Vertex Synapse Username
 
-### Password
+### Vertex Password
 
-The Password for your Vertex Synapse instance.
+The Vertex Synapse Password for the provided Username
 
 ## Installation Instructions
 
