@@ -46,9 +46,15 @@ async function doLookup(entities, options, cb) {
     const polarityResult = new PolarityResult();
 
     const lookupResults = data.map((result) => {
-      const preprocessedData = buildResultObject(result, options);
-      return polarityResult.createResultsObject(preprocessedData);
+      if (result.isMiss) {
+        return polarityResult.createNoResultsObject(result.entity);
+      } else {
+        const preprocessedData = buildResultObject(result, options);
+        return polarityResult.createResultsObject(preprocessedData);
+      }
     });
+
+    Logger.trace({ lookupResults }, 'Lookup Results');
 
     return cb(null, lookupResults);
   } catch (err) {
@@ -213,7 +219,14 @@ function processApiResponse(nestedResponsesArray) {
           })
           .filter(Boolean);
 
-        allPropsData = allPropsData.concat(propsData);
+        if (propsData.length === 0) {
+          allPropsData.push({
+            entity: response.entity,
+            isMiss: true
+          });
+        } else {
+          allPropsData = allPropsData.concat(propsData);
+        }
       } else {
         Logger.error('Response or response.result.body is not in the expected format.');
       }
