@@ -1,0 +1,15 @@
+{
+  "name": "vertex",
+  "version": "3.0.0",
+  "main": "integration.js",
+  "private": true,
+  "dependencies": {
+    "async": "^3.2.5",
+    "lodash": "^4.17.21",
+    "postman-request": "^2.88.1-postman.33",
+    "node-cache": "^5.1.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

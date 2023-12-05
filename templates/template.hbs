@@ -1,0 +1,91 @@
+{{#if details}}
+  <div>
+    <a class="p-link" href="{{details.queryLink}}">View in Vertex Synapse
+      {{fa-icon icon="external-link" class="external-link-icon"}}</a>
+  </div>
+
+  <h1 class="p-title">
+    {{fa-icon icon="info" fixedWidth=true}}
+    Node Properties
+  </h1>
+  {{#if details.created}}
+    <div>
+      <span class="p-key">Created:</span>
+      <span class="p-value">{{moment-format
+          details.created
+          "MM/DD/YYYY HH:mm:ss"
+          timeZone=timezone
+        }}</span>
+    </div>
+  {{/if}}
+  {{#if details.seen}}
+    <div>
+      <span class="p-key">Seen:</span>
+      <span class="p-value">
+        {{#each details.seen as |timestamp index|}}
+          {{#if (gt details.seen.length 1)}}
+            <div class="ml-2">
+              {{moment-format timestamp "MM/DD/YYYY HH:mm:ss" timeZone=timezone}}
+            </div>
+          {{else}}
+            {{moment-format timestamp "MM/DD/YYYY HH:mm:ss" timeZone=timezone}}
+          {{/if}}
+        {{/each}}
+      </span>
+    </div>
+  {{/if}}
+  {{#if details.asn}}
+    <div>
+      <span class="p-key">ASN:</span>
+      <span class="p-value">{{details.asn}}</span>
+    </div>
+  {{/if}}
+  {{#if details.dns_rev}}
+    <div>
+      <span class="p-key">DNS Reverse:</span>
+      <span class="p-value">{{details.dns_rev}}</span>
+    </div>
+  {{/if}}
+  {{#if details.latlong}}
+    <div>
+      <span class="p-key">Latitude/Longitude:</span>
+      <span class="p-value">{{details.latlong}}</span>
+    </div>
+  {{/if}}
+  {{#if details.loc}}
+    <div>
+      <span class="p-key">Location:</span>
+      <span class="p-value">{{details.loc}}</span>
+    </div>
+  {{/if}}
+  {{#if details.domain}}
+    <div>
+      <span class="p-key">Domain:</span>
+      <span class="p-value">{{details.domain}}</span>
+    </div>
+  {{/if}}
+  {{#if details.host}}
+    <div>
+      <span class="p-key">Host:</span>
+      <span class="p-value">{{details.host}}</span>
+    </div>
+  {{/if}}
+  {{#if details.issuffix}}
+    <div>
+      <span class="p-key">Is Suffix:</span>
+      <span class="p-value">{{details.issuffix}}</span>
+    </div>
+  {{/if}}
+  {{#if details.iszone}}
+    <div>
+      <span class="p-key">Is Zone:</span>
+      <span class="p-value">{{details.iszone}}</span>
+    </div>
+  {{/if}}
+  {{#if details.zone}}
+    <div>
+      <span class="p-key">Zone:</span>
+      <span class="p-value">{{details.zone}}</span>
+    </div>
+  {{/if}}
+{{/if}}
